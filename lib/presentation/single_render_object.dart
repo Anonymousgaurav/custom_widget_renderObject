@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class MyRenderPhysicalShapeDemo extends StatefulWidget {
-
-  const MyRenderPhysicalShapeDemo({Key? key}): super(key: key);
+  const MyRenderPhysicalShapeDemo({Key? key}) : super(key: key);
 
   @override
-  MyRenderPhysicalShapeState createState() {
-    return MyRenderPhysicalShapeState();
-  }
+  MyRenderPhysicalShapeState createState() => MyRenderPhysicalShapeState();
 }
 
 class MyRenderPhysicalShapeState extends State<MyRenderPhysicalShapeDemo> {
@@ -17,31 +14,39 @@ class MyRenderPhysicalShapeState extends State<MyRenderPhysicalShapeDemo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('MyRenderPhysicalShapeDemo')),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Slider(
-                value: _elevation,
-                onChanged: (value) => setState(() => _elevation = value),
-              ),
-              MyPhysicalShape(
-                elevation: _elevation,
-                child: const SizedBox(
-                  width: 50,
-                  height: 50,
-                ),
-              )
-            ]));
+      appBar: AppBar(title: const Text('MyRenderPhysicalShapeDemo')),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Slider(
+            value: _elevation,
+            onChanged: (value) => setState(
+              () => _elevation = value,
+            ),
+          ),
+          MyPhysicalShape(
+            elevation: _elevation,
+            child: const SizedBox(
+              width: 50,
+              height: 50,
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
 
 class MyPhysicalShape extends SingleChildRenderObjectWidget {
-  final _elevation ;
+  final _elevation;
 
-  const MyPhysicalShape({required double elevation,required Widget child,Key? key})
-      : _elevation = elevation,
-        super(child: child,key: key);
+  const MyPhysicalShape({
+    required double elevation,
+    required Widget child,
+    Key? key,
+  })  : _elevation = elevation,
+        super(child: child, key: key);
+
   @override
   RenderPhysicalShape createRenderObject(BuildContext context) {
     return RenderPhysicalShape(
@@ -57,7 +62,8 @@ class MyPhysicalShape extends SingleChildRenderObjectWidget {
   }
 
   @override
-  void updateRenderObject(BuildContext context, RenderPhysicalShape renderObject) {
+  void updateRenderObject(
+      BuildContext context, RenderPhysicalShape renderObject,) {
     renderObject.elevation = _elevation;
   }
 }
